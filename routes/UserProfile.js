@@ -10,4 +10,10 @@ router.get(
   UserProfileController.get_user_profile
 );
 
+router.delete(
+  "/profile/delete",
+  UserAuthMiddleware,
+  UserProfileController.delete_user
+);
+
 module.exports = router;
