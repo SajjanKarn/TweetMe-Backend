@@ -41,7 +41,9 @@ exports.register_user = async (req, res) => {
   if (isSuccess) {
     // if everything went successful. generate a token.
     const payload = { _id: isSuccess._id, username: isSuccess.username };
-    const jwtToken = jwt.sign(payload, process.env.JWT_SECRET);
+    const jwtToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
 
     const currentUser = {
       username: isSuccess.username,
@@ -73,7 +75,9 @@ exports.login_user = async (req, res) => {
 
   // else he's verified and generate a jwt token
   const payload = { _id: doesUserExist._id, username: doesUserExist.username };
-  const jwtToken = jwt.sign(payload, process.env.JWT_SECRET);
+  const jwtToken = jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
   const user = {
     username: doesUserExist.username,
     fullname: doesUserExist.fullname,
